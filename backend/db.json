@@ -3,23 +3,13 @@
     {
       "name": "Teste",
       "email": "",
-      "cpf": "99999999999",
+      "cpf": "11111111111",
       "telefone": "19999999999",
       "nascimento": "2023-09-05",
       "endereco": "teste@gmail.com",
       "lado": "Unilateral",
       "cadastro": "05/09/2023",
       "id": 1
-    },
-    {
-      "name": "asdasdasda",
-      "cpf": "12231123123",
-      "telefone": "12312312312",
-      "nascimento": "2222-02-22",
-      "endereco": "asdasd",
-      "lado": "Unilateral",
-      "cadastro": "05/09/2023",
-      "id": 3
     },
     {
       "name": "asasdasda",

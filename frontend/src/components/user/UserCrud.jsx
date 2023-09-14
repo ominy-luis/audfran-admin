@@ -3,6 +3,7 @@ import axios from "axios";
 import Main from "../template/Main";
 import InputMask from "react-input-mask";
 import validator from "validator";
+import PatientViewModal from "../popup/PatientViewModal";
 import "../user/UserCrud.css";
 
 const headerProps = {
@@ -27,7 +28,25 @@ const initialState = {
 
 export default class UserCrud extends Component {
 
-    state = { ...initialState }
+    state = {
+        ...initialState,
+        isViewModalVisible: true,
+        viewPatient: null,
+    }
+
+    openViewModal = (patient) => {
+        this.setState({
+            isViewModalVisible: true,
+            viewPatient: patient,
+        });
+    };
+
+    closeViewModal = () => {
+        this.setState({
+            isViewModalVisible: false,
+            viewPatient: null,
+        });
+    };
 
     componentWillMount() {
         axios(baseUrl).then(resp => {
@@ -319,7 +338,6 @@ export default class UserCrud extends Component {
             <table className="table mt-4">
                 <thead>
                     <tr>
-                        <th className="cell">ID</th>
                         <th className="cell">Nome</th>
                         <th className="cell">CPF</th>
                         <th className="cell">Telefone</th>
@@ -327,7 +345,7 @@ export default class UserCrud extends Component {
                         <th className="cell">Endereço</th>
                         <th className="cell">Dt. Cadastro</th>
                         <th className="cell">Uni ou Bi</th>
-                        <th className="cell">Ações</th>
+                        <th className="cell-actions">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -384,6 +402,11 @@ export default class UserCrud extends Component {
                             onClick={() => this.remove(pacientes)}>
                             <i className="fa fa-trash"></i>
                         </button>
+                        <button className="btn btn-primary ml-2"
+                            onClick={() => this.openViewModal(pacientes)}
+                        >
+                            <i className="fa fa-eye"></i>
+                        </button>
                     </td>
                 </tr>
             )
@@ -399,26 +422,37 @@ export default class UserCrud extends Component {
     }
 
     render() {
+        const { isViewModalVisible, viewPatient } = this.state;
+
         return (
             <Main {...headerProps}>
-                <div className="separador">
-                    <p>CADASTRO DE PACIENTES</p>
-                </div>
-
-                <div className="container">
-                    <div className="formulario">
-                        {this.renderForm()}
+                <div>
+                    <div className="separador">
+                        <p>CADASTRO DE PACIENTES</p>
                     </div>
-                </div>
 
-                <div className="separador">
-                    <p>PACIENTES</p>
-                </div>
-
-                <div className="container">
-                    <div className="filtros">
-                        {this.renderFilters()}
+                    <div className="container">
+                        <div className="formulario">
+                            {this.renderForm()}
+                        </div>
                     </div>
+
+                    <div className="separador">
+                        <p>PACIENTES</p>
+                    </div>
+
+                    <div className="container">
+                        <div className="filtros">
+                            {this.renderFilters()}
+                        </div>
+                    </div>
+
+                    {isViewModalVisible && viewPatient && (
+                        <PatientViewModal
+                            patient={viewPatient}
+                            onClose={this.closeViewModal}
+                        />
+                    )}
                 </div>
                 {this.renderTable()}
             </Main>
