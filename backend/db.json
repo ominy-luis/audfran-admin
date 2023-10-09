@@ -1,35 +1,62 @@
 {
   "pacientes": [
     {
-      "name": "Teste",
-      "email": "",
-      "cpf": "11111111111",
-      "telefone": "19999999999",
-      "nascimento": "2023-09-05",
-      "endereco": "teste@gmail.com",
+      "name": "luis",
+      "cpf": "12345678999",
+      "telefone": "12345678987",
+      "nascimento": "2000-12-12",
+      "endereco": "asd",
       "lado": "Unilateral",
-      "cadastro": "05/09/2023",
+      "cadastro": "21/09/2023",
+      "id": 1
+    }
+  ],
+  "produtos": [
+    {
+      "name": "Pica",
+      "quantidade": "6",
+      "preco": "1231",
+      "id": 1
+    }
+  ],
+  "fornecedor": [
+    {
+      "name": "luisonios",
+      "telefone": "19191991919",
+      "produto": "",
+      "endereco": "sf",
       "id": 1
     },
     {
-      "name": "asasdasda",
-      "cpf": "23524646346",
-      "telefone": "63463463463",
-      "nascimento": "3423-03-06",
-      "endereco": "ASJKDAKJSDHJLASD",
-      "lado": "Bilateral",
-      "cadastro": "06/09/2023",
-      "id": 4
+      "name": "cleito rasta",
+      "telefone": "12474523523",
+      "produto": "",
+      "endereco": "rua perebo",
+      "id": 2
+    }
+  ],
+  "vendas": [],
+  "compras": [
+    {
+      "fornecedor": "cleito rasta",
+      "produto": "Pica",
+      "preco": "123123",
+      "quantidade": "1",
+      "id": 1
     },
     {
-      "name": "gabriel",
-      "cpf": "12361982479",
-      "telefone": "28471982704",
-      "nascimento": "1223-03-12",
-      "endereco": "lkdnlasdlknalskdjl",
-      "lado": "Unilateral",
-      "cadastro": "06/09/2023",
-      "id": 5
+      "fornecedor": "luisonios",
+      "produto": "Pica",
+      "preco": "1231",
+      "quantidade": "2",
+      "id": 2
+    },
+    {
+      "fornecedor": "luisonios",
+      "produto": "Pica",
+      "preco": "1231",
+      "quantidade": "1",
+      "id": 3
     }
   ]
 }

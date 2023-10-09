@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import axios from "axios";
 import Main from "../template/Main";
 import InputMask from "react-input-mask";
@@ -48,7 +49,11 @@ export default class UserCrud extends Component {
         });
     };
 
-    componentWillMount() {
+    resetFilter() {
+        window.location.reload();
+    }
+
+    componentDidMount() {
         axios(baseUrl).then(resp => {
             this.setState({ list: resp.data })
         })
@@ -143,7 +148,7 @@ export default class UserCrud extends Component {
                     <div className="col-12 col-m-6">
                         <div className="form-group">
                             <label htmlFor="">Nome</label>
-                            <input type="text" className="form-control"
+                            <input className="form-control"
                                 name="name"
                                 value={this.state.pacientes.name}
                                 onChange={e => this.updateField(e)}
@@ -154,7 +159,7 @@ export default class UserCrud extends Component {
                     <div className="col-12 col-md-6">
                         <div className="form-group">
                             <label>CPF</label>
-                            <InputMask mask="999.999.999-99" type="text" className="form-control"
+                            <InputMask mask="999.999.999-99" className="form-control"
                                 name="cpf"
                                 value={this.state.pacientes.cpf}
                                 onChange={e => this.updateField(e)}
@@ -164,7 +169,7 @@ export default class UserCrud extends Component {
                     <div className="col-12 col-md-6">
                         <div className="form-group">
                             <label>Telefone</label>
-                            <InputMask mask="(99)99999-9999" type="text" className="form-control"
+                            <InputMask mask="(99)99999-9999" className="form-control"
                                 name="telefone"
                                 value={this.state.pacientes.telefone}
                                 onChange={e => this.updateField(e)}
@@ -183,7 +188,7 @@ export default class UserCrud extends Component {
                     <div className="col-12 col-md-6">
                         <div className="form-group">
                             <label>Endereço</label>
-                            <input type="text" className="form-control"
+                            <input className="form-control"
                                 name="endereco"
                                 value={this.state.pacientes.endereco}
                                 onChange={e => this.updateField(e)}
@@ -192,7 +197,7 @@ export default class UserCrud extends Component {
                     </div>
                     <div className="col-6 col-md-4">
                         <center>
-                            <label for="lado">Unilateral</label> <br />
+                            <label htmlFor="lado">Unilateral</label> <br />
                             <input type="radio"
                                 name="lado"
                                 value="Unilateral"
@@ -201,7 +206,7 @@ export default class UserCrud extends Component {
                     </div>
                     <div>
                         <center>
-                            <label for="lado">Bilateral</label>
+                            <label htmlFor="lado">Bilateral</label>
                             <br />
                             <input type="radio"
                                 name="lado"
@@ -229,7 +234,7 @@ export default class UserCrud extends Component {
     }
 
     getOnlyNames() {
-        const onlyNames = [...new Set(this.state.list.map(paciente => paciente.name))];
+        const onlyNames = [...new Set(this.state.list.map(pacientes => pacientes.name))];
         return onlyNames;
     }
 
@@ -237,7 +242,7 @@ export default class UserCrud extends Component {
         const onlyNames = this.getOnlyNames();
         return (
             <div className="row">
-                <div className="col-12 col-md-3">
+                <div className="col-12 col-md-6">
                     <div className="form-group">
                         <label>Nome</label>
                         <select
@@ -259,7 +264,6 @@ export default class UserCrud extends Component {
                     <div className="form-group">
                         <label>CPF</label>
                         <input
-                            type="text"
                             className="form-control"
                             name="filterCpf"
                             value={this.state.filterCpf}
@@ -271,7 +275,6 @@ export default class UserCrud extends Component {
                     <div className="form-group">
                         <label>Ano de Nascimento</label>
                         <input
-                            type="text"
                             className="form-control"
                             name="filterNascimento"
                             value={this.state.filterNascimento}
@@ -279,11 +282,10 @@ export default class UserCrud extends Component {
                         />
                     </div>
                 </div>
-                <div className="col-12 col-md-3">
+                <div className="col-12 col-md-6">
                     <div className="form-group">
                         <label>Endereço</label>
                         <input
-                            type="text"
                             className="form-control"
                             name="filterEndereco"
                             value={this.state.filterEndereco}
@@ -295,7 +297,6 @@ export default class UserCrud extends Component {
                     <div className="form-group">
                         <label>Data de Cadastro</label>
                         <input
-                            type="text"
                             className="form-control"
                             name="filterCadastro"
                             value={this.state.filterCadastro}
@@ -318,6 +319,10 @@ export default class UserCrud extends Component {
                         </select>
                     </div>
                 </div>
+                <button className="btn btn-danger ml-3"
+                    onClick={this.resetFilter}>
+                    Limpar Filtro
+                </button>
             </div>
         );
     }

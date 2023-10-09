@@ -1,14 +1,28 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importe o useNavigate para acessar o objeto de navegação
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"; // Importe a biblioteca js-cookie
 import "../login/Login.css";
 import { useAuth, AuthLogin } from "../login/Auth";
 
 const Login = () => {
-    const navigate = useNavigate(); // Use o useNavigate para acessar a navegação
+    const navigate = useNavigate();
     const { login } = useAuth();
 
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+
+    // Função para verificar se o usuário está logado
+    const checkLoginStatus = () => {
+        const isLoggedIn = Cookies.get("isLoggedIn") === "true";
+        if (isLoggedIn) {
+            navigate("/dashboard");
+            window.location.reload();
+        }
+    };
+
+    useEffect(() => {
+        checkLoginStatus();
+    }, []);
 
     const handleLogin = () => {
         const storedUsername = "admin";
@@ -17,6 +31,9 @@ const Login = () => {
         if (user === storedUsername && password === storedPassword) {
             alert("Login efetuado com sucesso!");
             login();
+
+            Cookies.set("isLoggedIn", "true");
+
             navigate("/dashboard");
         } else {
             alert("Credenciais inválidas. Tente novamente.");
